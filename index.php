@@ -5,237 +5,136 @@ $c_doan = new C_doan();
 $noi_dung = $c_doan->index();
 $slide = $noi_dung['slide'];
 $menu = $noi_dung['menu'];
-//print_r($menu);
+$doannoibat = $noi_dung['doannoibat'];
+$tintucmoinhat = $noi_dung['tintucmoinhat'];
+$biggest_view = $noi_dung['biggest_view'];
 
+if( isset($_GET["p"]))
+    $p = $_GET["p"];
+else $p = "";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>TTB</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="public/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="public/css/homepage.css" rel="stylesheet">
-    <link href="public/css/my.css" rel="stylesheet">
-
-</head>
-
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Hệ thống quản lý đồ án sinh viên</title>
+        <!-- Bootstrap Core CSS -->
+        <link href="public/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="public/css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="public/admin/font-awesome/css/font-awesome.min.css">
+    </head>
 <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Project Management System</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.php">Trang chủ</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="gioithieu.php">Giới thiệu</a>
-                    </li>
-                    <li>
-                        <a href="lienhe.php">Liên hệ</a>
-                    </li>
-                </ul>
-
-                <form class="navbar-form navbar-left" role="search">
-			        <div class="form-group">
-			          <input type="text" class="form-control" size="50" placeholder="Search">
-			        </div>
-			        <button type="submit" class="btn btn-default">Submit</button>
-			    </form>
-
-			    <ul class="nav navbar-nav pull-right">
-                    <?php
-                    if(isset(($_SESSION['user_name']))){
-                    ?>
-                    <li>
-                        <a href="dangxuat.php">Đăng xuất</a>
-                    </li>
-                    <li>
-                        <a href="canhan.php?ms_sv=<?=$_SESSION['mssv']?>"><span class ="glyphicon glyphicon-user" style="color: #3CFF0D; padding:0 10px 0 0"></span><?=$_SESSION['user_name']?></a>
-                    </li>
-                    <?php
-                    }else{
-                    ?>
-                    <li>
-                        <a href="dangki.html">Đăng ký</a>
-                    </li>
-                    <li>
-                        <a href="dangnhap.php">Đăng nhập</a>
-                    </li>
-                    <?php
-                    }
-                    ?>
-                </ul>
-        
-            </div>
-            <!-- /.navbar-collapse -->
+	<!--logo-->
+    <div class="row" id="home1">
+        <div class="col-md-8">
+            <div class="logo"><img class="img-responsive" src="public/image/logo.png" alt="" /></div>
         </div>
-        <!-- /.container -->
-    </nav>
-
-    <!-- Page Content -->
-    <div class="container">
-
-    	<!-- slider -->
-    	<div class="row carousel-holder">
-            <div class="col-md-12">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
+        <div class="col-md-4">
+                <?php
+                if(isset(($_SESSION['user_name']))){
+                ?>
+                    <a href="dangxuat.php" class="btn btn-success pull-right" role="button"  style="padding: 0 28px 0 28px;">Đăng xuất</a>
+                    <a role="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#popUpWindow" style="padding: 0 28px 0 28px; margin-right: 5px; ">Thông tin</a>
+                     <?php require "thongtincanhan.php";?>
+                    <div class="pull-right" style="margin-top:20px;">
                         <?php
-                            for($i=0; $i<count($slide); $i++){
-                                if($i==0){
-                                    ?>
-                                    <div class="item active">
-                                        <img class="slide-image" src="public/image/slide/<?=$slide[$i]->Hinh?>" alt="">
-                                    </div>
-                                    <?php
-                                }
-                                else{
-                                    ?>
-                                    <div class="item">
-                                        <img class="slide-image" src="public/image/slide/<?=$slide[$i]->Hinh?>" alt="">
-                                    </div>
-                                    <?php
-                                }
-                            }
-                        ?>
-                    </div>
-                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- end slide -->
-
-        <div class="space20"></div>
-
-        <div class="row main-left">
-            <div class="col-md-3 ">
-                <ul class="list-group" id="menu">
-                    <li href="#" class="list-group-item menu1 active">
-                    	Menu
-                    </li>
-                    <?php
-                        foreach ($menu as $mn) {
+                        if ($_SESSION['per'] == 'sv' ) {
                             ?>
-                            <li href="#" class="list-group-item menu1"><?=$mn->TenBM?></li>
-                            <ul>
-                                <?php
-                                    $loai = explode(',',$mn->Loai);//phan cach mang thanh cac mang con boi dau ','
-                                    // print_r($loai);
-                                    foreach ($loai as $l) {
-                                        list($id, $ten, $tenkhongdau) = explode(':', $l);
-                                        // echo "Binh dz";
-                                        // print_r($ten);
-                                        ?>
-                                        <li class="list-group-item"><a href="loaidoan.php?id_loai=<?=$id?>"><?=$ten?></a></li>
-                                        <?php
-                                    }
-                                ?>
-                            </ul>
+                                <div class="pull-right">
+                                   <b>Xin chào: </b><a href="sinhvien.php?ms_sv=<?=$_SESSION['mssv']?>"><span class ="glyphicon glyphicon-user" style="color: #3CFF0D; padding:0 10px 0 0"></span><code><?=$_SESSION['user_name']?></code></a>
+                                    <br>
+                                    <p class="text-center"><i>( Have a nice day ! )</i></p>    
+                                </div>
                             <?php
                         }
-                    ?>
-                </ul>
-            </div>
-
-            <div class="col-md-9">
-	            <div class="panel panel-default">
-	            	<div class="panel-heading" style="background-color:#337AB7; color:white;" >
-	            		<h2 style="margin-top:0px; margin-bottom:0px;"> Trang nhất</h2>
-	            	</div>
-
-	            	<div class="panel-body">
-	            		
-                        <?php
-                            foreach ($menu as $mn) {
-                                ?>
-                                <!-- item -->
-                                <div class="row-item row">
-                                <h3>
-                                <a href="#"><?=$mn->TenBM?></a> |
-                                <!-- <div class="break"></div> -->
-                                <?php
-                                    $loai = explode(',',$mn->Loai);
-                                     foreach ($loai as $l) {
-                                            list($id, $ten, $tenkhongdau) = explode(':', $l);
-                                            ?>
-                                            <small><a href="loaidoan.php?id_loai=<?=$id?>"><i><?=$ten?></i></a>/</small>
-                                            <?php 
-                                        }
-                                ?>
-                                </h3>
-                                <div class="col-md-12 border-right">
-                                <!-- <div class="col-md-0.5">
-                                    <a href="chitiet.php?loai_doan=<?=$tenkhongdau?>&id_doan=<?=$mn->idDA?>">
-                                        <img class="img-responsive" src="public/image/avata/<?=$mn->Hinh?>" alt="">
-                                    </a>
-                                </div> -->
-                                        
-                                <!-- <div class="col-md-9"> -->
-                                    <h3><?=$mn->TênDA?></h3>
-                                    <p><?=$mn->TomTat?></p>
-                                    <a class="btn btn-primary" href="chitiet.php?loai_doan=<?=$tenkhongdau?>&id_doan=<?=$mn->idDA?>">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
-                                <!-- </div>
- -->
+                        if ($_SESSION['per'] == 'gv' ) {
+                            ?>
+                                <div class="pull-right">
+                                    <b>Xin chào: </b><a href="giangvien.php?ma_gv=<?=$_SESSION['magv']?>"><span class ="glyphicon glyphicon-user" style="color: #3CFF0D; padding:0 10px 0 0"></span><code><?=$_SESSION['user_name']?></code></a>
+                                    <br>
+                                    <p class="text-center"><i>( Have a nice day ! )</i></p>
                                 </div>
-
-                                <div class="break"></div>
-                                </div>
-                                <!-- end item -->
-                                <?php
-                            }
+                            <?php
+                        }
+                        if ($_SESSION['per'] == 'gvu' ) {
+                                header("Location: giaovu/giaovu.php");
+                        }
+                        if ($_SESSION['per'] == 'admin' ) {
+                            header("Location: admin/admin.php");
+                        }
                         ?>
-                        
-					</div>
-	            </div>
-        	</div>
+                    </div>
+                    <?php
+                }else{
+                ?>
+                    <a href="dangnhap.php" class="btn btn-success pull-right" role="button" style="padding: 0 25px 0 25px;">Đăng nhập</a>
+                <?php
+                }
+                ?>
         </div>
-        <!-- /.row -->
     </div>
-    <!-- end Page Content -->
+    <!--end logo-->
+    <!-- menu -->
+    <div>
+        <?php require "menu.php"; ?>
+    </div>
+    <!--end menu-->
+    <div class="space20"></div>
+	<!--search-->
+    <div class="row">
+        <div class="col-md-9">
+            <div class="serch_web pull-right">
+                <form class="navbar-form navbar-left" role="search" method="get" id="search">
+                    <input type="text" class="form-control" size="70" name="key" value="" placeholder="Search...">
+                    <button id="icon_search" type="submit" class="fa fa-search"></button>
+                    <input name="p" type="hidden" value="timkiem" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--end search-->
+    <div class="container">
+    	<?php
+    		switch ($p) {
+    			case 'timkiem':
+    				require "timkiem.php";
+    				break;
+                case 'loai':
+                    require "loaidoan.php";
+                    break;
+                case 'chitietdoan':
+                    require "chitietdoan.php";
+                    break;
+                case 'dstintuc':
+                    require "pagenews.php";
+                    break;
+                case 'chitietthongbao':
+                    require "chitietthongbao.php";
+                    break;
+    			default:
+    				require "trangchu.php";
+    				break;
+    		}
+    	?>
+    </div>
+    <!-- end container -->
     <div class="space20"></div>
     <!-- Footer -->
     <hr>
     <div id="footer">
         <!-- footer.php -->
-        <div class="row">
-            <div class="col-md-3">
-                <div class="bot1"><img class="img-responsive" src="public/image/logo.gif" alt="" /></div>
+        <div class="row" id="home2">
+            <div class="col-md-4">
+                <div class="bot1"><img class="img-responsive" src="public/image/logo.png" alt="" /></div>
             </div>
             <div class="space20"></div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="bot2">
                     <p>&copy; <span><b>Copyright 2017 <mark>BK-TTB</mark></b></span></p>
                     <p>&reg; <i>welcome to the website</i></p>
@@ -251,13 +150,10 @@ $menu = $noi_dung['menu'];
         </div>
     </div>
     <!-- end Footer -->
-    <div class="space20"></div>
     <!-- jQuery -->
     <script src="public/js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="public/js/bootstrap.min.js"></script>
     <script src="public/js/my.js"></script>
-
 </body>
-
 </html>

@@ -5,7 +5,7 @@ class database{
     public $_cursor = NULL;        
     
     public function database() {
-        $this->_dbh = new PDO('mysql:host=localhost; dbname=quanlydoan2','root','');
+        $this->_dbh = new PDO('mysql:host=localhost; dbname=quanlydoan3','root','');
         //PDO là một thư viện giúp giao tiep vs CSDL, chuyển các câu lệnh truy vấn thành câu lệnh truy vấn tương ứng trong hệ quản trị CSDL. đọc dứ liệu từ database sẽ trả về kiểu aray hoặc object
         $this->_dbh->query('set names "utf8"');//lenh truy van lay du lieu tu database
     }

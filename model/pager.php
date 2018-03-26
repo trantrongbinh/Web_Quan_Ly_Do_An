@@ -2,8 +2,8 @@
 //Phan trang
 class pagination{
 	private $_totalItem;// tổng số item
-	public $_nItemOnPage; // số luựng item trong 1 page
-	private $_nPageShow ; // số luong link page hiển thị
+	public $_nItemOnPage; // số lượng item trong 1 page
+	private $_nPageShow ; // số lượng link page hiển thị
 	private $_totalPage; // tông sô page
 	private $_currentPage; // page hiên thi
 
@@ -55,7 +55,7 @@ class pagination{
 					$endPage 	= $this->_nPageShow;
 				}else if($this->_currentPage == $this->_totalPage){
 					$startPage		= $this->_totalPage - $this->_nPageShow + 1;
-					//  cái s? trang b?t d?u d? hi?n th?
+					//  cái số trang bắt dầu để hiển thị
 					$endPage		= $this->_totalPage;
 				}else{
 					$startPage		= $this->_currentPage - ($this->_nPageShow-1)/2;
